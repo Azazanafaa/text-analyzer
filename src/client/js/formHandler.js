@@ -6,7 +6,7 @@ const resultList = document.getElementById('results')
 // Event listener for onclik submit form
 function handleSubmit(event) {
     event.preventDefault()
-    getAnalysis('/fetchAnalysis').then(res => {
+    getAnalysis('/fetchAnalysis', formText.value).then(res => {
         if (res) {
             return getAllData('/getAnalysis', formText.value)
         }
@@ -25,9 +25,7 @@ const getAnalysis = async (url = '', data) => {
         mode: 'cors',
         cridentials: 'same-orgin',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            searchText: { text: `${data}`, 'endpoint': ['classify', 'hashtags'] }
-        })
+        body: JSON.stringify({ text: data })
     })
     try {
         const res = await response

@@ -9,9 +9,9 @@ let data = []
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('dist'))
-app.get('/', function (req, res) {res.sendFile('dist/index.html')})
+app.get('/', function (req, res) { res.sendFile('dist/index.html') })
 
 // configuring env
 const dotenv = require('dotenv')
@@ -25,8 +25,7 @@ var textapi = new aylien({
 
 // fetching data from aylien api
 app.post('/fetchAnalysis', (req, res) => {
-    console.log(req.body.searchText)
-    textapi.combined(req.body.searchText, function (error, response) {
+    textapi.combined({ text: req.body.text , 'endpoint': ['classify', 'hashtags']}, function (error, response) {
         if (error === null) {
             data.push(response)
             res.send(response)
