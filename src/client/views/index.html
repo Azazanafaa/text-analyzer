@@ -2,8 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Text Analyzer</title>
-    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <title>Text & Url Analyzer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,400,700' rel='stylesheet' type='text/css'>
     <base href="/">
@@ -18,9 +17,20 @@
                     onsubmit="return Client.handleSubmit(event)">Get Analysis</button>
             </form>
         </div>
-        <div class="result-container" id="results">
-            <div id="no-result">Please make your first search</div>
+        <div class="results">
+            <strong>Text Analysis</strong>
+            <div id="text-header">No search for text yet!</div>
+            <br>
+            <div class="result-container" id="result-text">
+            </div>
+            <br>
+            <strong >Url Analysis</strong>
+            <div id="url-header">No search for url yet!</div>
+            <br>
+            <div class="result-url" id="result-url">
+            </div>
         </div>
+        
     </div>
 
     <script>

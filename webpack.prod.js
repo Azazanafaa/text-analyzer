@@ -12,6 +12,10 @@ module.exports = {
     optimization: {
         minimizer: [new TerserPlugin({}), new OptimizeCssAssetsPlugin({})]
     },
+    output: {
+        libraryTarget: 'var',
+        library: 'Client'
+    },
     module: {
         rules: [
             {

@@ -3,7 +3,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const aylien = require("aylien_textapi")
-let data = []
+const data = []
+const urlData = []
 
 // configuting server
 const app = express()
@@ -39,6 +40,24 @@ app.post('/fetchAnalysis', (req, res) => {
 // returning analysis to client
 app.get('/getAnalysis', (req, res) => {
     res.status(200).send(data);
+});
+
+// fetching data from aylien api
+app.post('/fetchUrlAnalysis', (req, res) => {
+    textapi.sentiment({ text: req.body.text }, function (error, response) {
+        if (error === null) {
+            urlData.push(response)
+            res.send(response)
+        } else {
+            res.status(500).send({ 'error': error })
+            console.log(error)
+        }
+    });
+});
+
+// returning analysis to client
+app.get('/getUrlAnalysis', (req, res) => {
+    res.status(200).send(urlData);
 });
 
 

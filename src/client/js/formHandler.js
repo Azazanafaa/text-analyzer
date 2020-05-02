@@ -1,21 +1,42 @@
 const baseUrl = 'http://localhost:8082'
 const formText = document.getElementById('name')
-const resultList = document.getElementById('results')
+const resultList = document.getElementById('result-text')
+const resultUrl = document.getElementById('result-url')
+const textHeader = document.getElementById('text-header')
+const urlHeader = document.getElementById('url-header')
+const noResult = document.getElementById('no-result')
+import { isUrl } from './checkForUrl'
+
 
 
 // Event listener for onclik submit form
 function handleSubmit(event) {
     event.preventDefault()
-    getAnalysis('/fetchAnalysis', formText.value).then(res => {
-        if (res) {
-            return getAllData('/getAnalysis', formText.value)
-        }
-    }).then((res) => {
-        if (res) {
-            updateUi(res)
-            console.log(res)
-        }
-    });
+    if (!isUrl(formText.value)) {
+        textHeader.style.visibility = 'hidden'
+        getAnalysis('/fetchAnalysis', formText.value).then(res => {
+            if (res) {
+                return getAllData('/getAnalysis')
+            }
+        }).then((res) => {
+            if (res) {
+                updateUi(res)
+                console.log(res)
+            }
+        });
+    } else {
+        urlHeader.style.visibility = 'hidden'
+        getAnalysis('/fetchUrlAnalysis', formText.value).then(res => {
+            if (res) {
+                return getAllData('/getUrlAnalysis')
+            }
+        }).then((res) => {
+            if (res) {
+                updateUrlUi(res)
+                console.log(res)
+            }
+        });
+    }
 }
 
 // Invoking the server to search for analysis by what user entered
@@ -83,6 +104,22 @@ function updateUi(data) {
     }
 
 }
+
+function updateUrlUi(data) {
+    console.log('url check', data);
+    resultUrl.innerHTML = ''
+    for (let url of data ) {
+        const content = `<div class="result-card" ><p><strong>Url: </strong>${url.text}</p>
+        <div><strong>Polarity: </strong>${url.polarity}</div>
+        <div><strong>Subjectivity: </strong>${url.subjectivity}</div>
+        </div>`
+        resultUrl.insertAdjacentHTML('afterbegin', content)
+    }
+    
+}
+
+
+
 
 // Exporting handling submit to be imported in index.js
 export { handleSubmit, getAllData }
