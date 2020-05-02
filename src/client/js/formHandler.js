@@ -4,15 +4,14 @@ const resultList = document.getElementById('result-text')
 const resultUrl = document.getElementById('result-url')
 const textHeader = document.getElementById('text-header')
 const urlHeader = document.getElementById('url-header')
-const noResult = document.getElementById('no-result')
-import { isUrl } from './checkForUrl'
+import { checkForUrl } from './checkForUrl'
 
 
 
 // Event listener for onclik submit form
 function handleSubmit(event) {
     event.preventDefault()
-    if (!isUrl(formText.value)) {
+    if (!checkForUrl(formText.value)) {
         textHeader.style.visibility = 'hidden'
         getAnalysis('/fetchAnalysis', formText.value).then(res => {
             if (res) {

@@ -7,7 +7,7 @@ describe("getAllData function", () => {
         fetchMock.mock('http://localhost:8082/getAnalysis', Promise.resolve({ data: 'test' }))
         let result = ''
         getAllData('/getAnalysis').then(res => {
-            expect(res.dara).toBe('test')
+            expect(res.data).toBe('test')
         })
     });
 });
