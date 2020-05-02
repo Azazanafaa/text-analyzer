@@ -24,7 +24,7 @@ function handleSubmit(event) {
                 console.log(res)
             }
         });
-    } else {
+    } else if (formText.value && formText.value != '') {
         urlHeader.style.visibility = 'hidden'
         getAnalysis('/fetchUrlAnalysis', formText.value).then(res => {
             if (res) {
@@ -108,14 +108,14 @@ function updateUi(data) {
 function updateUrlUi(data) {
     console.log('url check', data);
     resultUrl.innerHTML = ''
-    for (let url of data ) {
+    for (let url of data) {
         const content = `<div class="result-card" ><p><strong>Url: </strong>${url.text}</p>
         <div><strong>Polarity: </strong>${url.polarity}</div>
         <div><strong>Subjectivity: </strong>${url.subjectivity}</div>
         </div>`
         resultUrl.insertAdjacentHTML('afterbegin', content)
     }
-    
+
 }
 
 
